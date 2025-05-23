@@ -63,6 +63,16 @@ class Blockchain:
             else:
                 block.nonce += 1
 
+    def isValid(self):
+        for i in range(1, len(self.chain)):
+            _prev = self.chain[i].prevHash
+            _curr = self.chain[i - 1].hash()
+            if _prev != _curr or _curr[:self.difficulty] != "0" * self.difficulty:
+                return False
+
+        return True
+
+
 
 def main():
     AtomsBlockchain = Blockchain()
@@ -75,6 +85,8 @@ def main():
 
     for block in AtomsBlockchain.chain:
         print(block)
+
+    print(f"State: ", AtomsBlockchain.isValid())
 
 
 if __name__ == '__main__':
