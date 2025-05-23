@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -> coding: utf-# -*-
+# -> coding: utf-8 -*-
 
 from hashlib import sha256
 
@@ -11,7 +11,7 @@ def updateHash(*args):
     h.update(hashingText.encode('utf-8'))
     return h.hexdigest()
 
-print(updateHash("Hello world", "Hello"))
+#print(updateHash("Hello world", "Hello"))
 
 class Block():
     data = None
@@ -23,13 +23,28 @@ class Block():
         self.number = number
 
     def hash(self):
-        return updateHash(self.prevHash, self.number, self.data, self.nonce)
+        return updateHash(
+        self.prevHash,
+            self.number,
+            self.data,
+            self.nonce)
 
     def __str__(self):
-        return str("Block #: %s\nHash: %s\nPrevious: %s\nData: %s\nNonce: %s\n" %(self.number, self.hash, self.prevHash, self.data, self.nonce))
+        return str("Block #: %s\nHash: %s\nPrevious: %s\nData: %s\nNonce: %s\n"
+                   %(self.number,
+                     self.hash,
+                     self.prevHash,
+                     self.data,
+                     self.nonce))
 
 class Blockchain():
-    pass
+    difficulty = 4
+
+    def __init__(self, chain=[]):
+        self.chain = chain
+
+    def add(self, block):
+        self.chain.append({'hash' : block.hash(), 'previous' : block.prevHash, 'number' : block.number, 'data' : block.data, 'nonce' : block.nonce})
 
 def main():
     block = Block("Hello, Atom!", 1)
