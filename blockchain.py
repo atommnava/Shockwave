@@ -86,6 +86,8 @@ def main():
     for block in AtomsBlockchain.chain:
         print(block)
 
+    # AtomsBlockchain.chain[2].data = "CORRUPTED DATA"
+    # AtomsBlockchain.mine(AtomsBlockchain.chain[2])
     print(f"State: ", AtomsBlockchain.isValid())
 
 
