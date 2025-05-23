@@ -43,6 +43,7 @@ class Blockchain():
     def __init__(self, chain=[]):
         self.chain = chain
 
+
     def add(self, block):
         self.chain.append({'hash' : block.hash(), 'previous' : block.prevHash, 'number' : block.number, 'data' : block.data, 'nonce' : block.nonce})
 
