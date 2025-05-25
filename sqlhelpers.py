@@ -21,17 +21,19 @@ class Table():
     def drop(self):
         pass
 
-    def insert(self):
+    def insert(self, *args):
         pass
 
-def isNewTable():
+    #check if table already exists
+def isnewtable(tableName):
     cur = mysql.connection.cursor()
 
-    try:
-        #result = cur.execute("SELECT * FROM %s" + )
+    try: #attempt to get data from table
+        result = cur.execute("SELECT * from %s" %tableName)
         cur.close()
     except:
         return True
     else:
         return False
-users = Table("users", "name", "username", "email", "password")
+
+
