@@ -40,7 +40,14 @@ class Table():
         mysql.connection.commit()
         cur.close()
 
-    #check if table already exists
+
+def sql_raw(execution):
+    cur = mysql.connection.cursor()
+    cur.execute(execution)
+    mysql.connection.commit()
+    cur.close()
+
+#check if table already exists
 def isnewtable(tableName):
     cur = mysql.connection.cursor()
 
@@ -51,5 +58,12 @@ def isnewtable(tableName):
         return True
     else:
         return False
+
+def isNewUser():
+    users = Table("users", "name", "email", "username", "password")
+    data = users.getAll()
+    usernames = [user.get('username') for user in data]
+
+    return False if username in usernames else True
 
 
