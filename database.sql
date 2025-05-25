@@ -11,8 +11,8 @@ CREATE TABLE blockchain(
 
 CREATE TABLE users(
      name VARCHAR(64),
-     username VARCHAR(32),
      email VARCHAR(64),
+     username VARCHAR(32),
      password VARCHAR(128)
 );
 
