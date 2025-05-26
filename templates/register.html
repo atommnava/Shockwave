@@ -6,6 +6,14 @@
     <title>Register page</title>
 </head>
 <body>
-    <h2><h1>Register </h1> page for users!</h2>
+    <h1>Register  page for users!</h1>
+    <form method="POST" action="">
+        <input value={{request.form.name}}><label>Full Name</label>
+        <input value={{request.form.email}}><label>Email</label>
+        <input value={{request.form.username}}><label>Username</label>
+        <input value={{request.form.password}}><label>Password</label>
+        <input value={{request.form.confirm}}><label>Confirm Password</label>
+        <button type="submit">Register</button>
+    </form>
 </body>
 </html>
