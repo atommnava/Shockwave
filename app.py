@@ -21,7 +21,11 @@ mysql = MySQL(app)
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegisterForm(request.form)
-    return render_template('register.html')
+    users = Table("users", "name", "email", "username", "password")
+    if request.method == 'POST' and form.validate():
+        pass
+
+    return render_template('register.html', form=form)
 
 @app.route("/")
 def index():
