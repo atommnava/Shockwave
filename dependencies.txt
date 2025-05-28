@@ -6,6 +6,7 @@ pip install flask-mysqldb
 pip install passlib
 
 pip install wtforms
+pip install functools
 
 
 mysql.server start
