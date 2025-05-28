@@ -6,8 +6,19 @@ from passlib.hash import sha256_crypt
 from flask_mysqldb import MySQL
 from sqlhelpers import *
 from forms import *
+from functools import wraps
 
 app = Flask(__name__)
+
+def isLoggedIn(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("Unauthorized, please log in", "danger")
+            return redirect(url_for('login'))
+    return wrap
 
 # Configuration for all our setting from MySQL
 app.config['MYSQL_HOST'] = 'localhost'
@@ -47,6 +58,7 @@ def register():
     return render_template('register.html', form=form)
 
 @app.route("/login", methods = ['GET', 'POST'])
+@isLoggedIn
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -77,6 +89,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route("/dashboard")
+@isLoggedIn
 def dashboard():
     return render_template('dashboard.html', session=session)
 
