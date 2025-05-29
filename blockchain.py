@@ -75,20 +75,20 @@ class Blockchain:
 
 
 def main():
-    AtomsBlockchain = Blockchain()
+    blockchain = Blockchain()
     database = ["Hello, Atom!", "How R u doin?", "Hello", "Bye"]
 
     num = 0
     for data in database:
         num += 1
-        AtomsBlockchain.mine(Block(data, num))
+        blockchain.mine(Block(data, num))
 
-    for block in AtomsBlockchain.chain:
+    for block in blockchain.chain:
         print(block)
 
     # AtomsBlockchain.chain[2].data = "CORRUPTED DATA"
     # AtomsBlockchain.mine(AtomsBlockchain.chain[2])
-    print(f"State: ", AtomsBlockchain.isValid())
+    print(f"State: ", blockchain.isValid())
 
 
 if __name__ == '__main__':

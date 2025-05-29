@@ -95,6 +95,7 @@ def dashboard():
 
 @app.route("/")
 def index():
+    sendMoney("BANK", "atom", 100)
     return render_template('index.html')
 
 if __name__ == "__main__":
