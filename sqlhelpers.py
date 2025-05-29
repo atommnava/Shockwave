@@ -100,15 +100,28 @@ def isnewuser(username):
 
     return False if username in usernames else True
 
+
+def getBalance(username):
+    balance = 0.00
+    blockchain = get_blockchain()
+    for block in blockchain.chain:
+        data = block.data.split("-->")
+        if username == data[0]:
+            balance -= float(data[2])
+        elif username == data[1]:
+            balance += float[data[2]]
+
+    return balance
+
 #send money from one user to another
-def send_money(sender, recipient, amount):
+def sendMoney(sender, recipient, amount):
     #verify that the amount is an integer or floating value
     try: amount = float(amount)
     except ValueError:
         raise InvalidTransactionException("Invalid Transaction.")
 
     #verify that the user has enough money to send (exception if it is the BANK)
-    if amount > get_balance(sender) and sender != "BANK":
+    if amount > getBalance(sender) and sender != "BANK":
         raise InsufficientFundsException("Insufficient Funds.")
 
     #verify that the user is not sending money to themselves or amount is less than or 0
@@ -125,20 +138,6 @@ def send_money(sender, recipient, amount):
     data = "%s-->%s-->%s" %(sender, recipient, amount)
     blockchain.mine(Block(number, data=data))
     sync_blockchain(blockchain)
-
-#get the balance of a user
-def get_balance(username):
-    balance = 0.00
-    blockchain = get_blockchain()
-
-    #loop through the blockchain and update balance
-    for block in blockchain.chain:
-        data = block.data.split("-->")
-        if username == data[0]:
-            balance -= float(data[2])
-        elif username == data[1]:
-            balance += float(data[2])
-    return balance
 
 #get the blockchain from mysql and convert to Blockchain object
 def get_blockchain():
