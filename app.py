@@ -141,7 +141,7 @@ def buy():
             flash(str(e), 'danger')
 
         return redirect(url_for('dashboard'))
-    return render_template('buy.html', balance=balance, form=form)
+    return render_template('buy.html', balance=balance, form=form, page='buy')
 
 #logout the user. Ends current session
 @app.route("/logout")
@@ -155,10 +155,12 @@ def logout():
 @app.route("/dashboard")
 @is_logged_in
 def dashboard():
+
     balance = get_balance(session.get('username'))
     blockchain = get_blockchain().chain
-    ct = time.strftime("%I:%M %p")
-    return render_template('dashboard.html', balance=balance, session=session, ct=ct, blockchain=blockchain, page='dashboard')
+    currTime = time.strftime("%I:%M %p")
+
+    return render_template('dashboard.html', balance=balance, session=session, currTime=currTime, blockchain=blockchain, page='dashboard')
 
 #Index page
 @app.route("/")
